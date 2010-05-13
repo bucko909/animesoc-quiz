@@ -1,0 +1,4 @@
+for I in $(seq -f%02g 0 36); do convert q_lores/q$I.png -depth 16 -gamma 0.4545454545 -resize 400x600 -gamma 2.2 -depth 8 q/q$I.png; done
+rm q_real/* a_real/*
+ls q|sed 's/.\(..\).*/\1/'|perl -ne'push@a,[$_,rand()];END{printf"%02i %s",++$a,$_->[0] for sort{$a->[1]<=>$b->[1]}@a;}'|while read I J; do cp q/q$J.png q_real/q$I.png; cp a/a$J\b.png a_real/a$I\b.png; cp q/q$J.png a_real/a$I\a.png; done
+perl -e 'printf "%02i %02i %02i\n", 2*$_-1,2*$_-1,2*$_ for 1..12'|while read I J K; do convert q$J.png q$K.png +append bits/q$I.png; done
